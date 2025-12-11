@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { createTask } from '../actions/tasks';
-import { SERVER_NAMES, ServerType } from '@/types/task';
+import { ServerType } from '@/types/task';
 import { useRouter } from 'next/navigation';
 
 interface TaskFormProps {
@@ -19,7 +19,7 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
     taskBranch: '',
     prLink: '',
     serverType: 'backend' as ServerType,
-    serverName: 'dev' as typeof SERVER_NAMES[number],
+    serverName: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
         taskBranch: '',
         prLink: '',
         serverType: 'backend',
-        serverName: 'dev',
+        serverName: '',
       });
       onSuccess?.();
       router.refresh();
@@ -131,17 +131,13 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
 
         <div>
           <label className="block text-sm font-medium mb-1">Server Name</label>
-          <select
+          <input
+            type="text"
             value={formData.serverName}
-            onChange={(e) => setFormData({ ...formData, serverName: e.target.value as typeof SERVER_NAMES[number] })}
+            onChange={(e) => setFormData({ ...formData, serverName: e.target.value })}
+            placeholder="e.g., dev, qa, stage, prod"
             className="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800"
-          >
-            {SERVER_NAMES.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
+          />
         </div>
       </div>
 

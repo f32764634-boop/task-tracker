@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Task } from '@/types/task';
 import { updateTask, deleteTask } from '../actions/tasks';
-import { SERVER_NAMES, ServerType } from '@/types/task';
+import { ServerType } from '@/types/task';
 import { useRouter } from 'next/navigation';
 
 interface TaskDetailsProps {
@@ -188,17 +188,13 @@ export default function TaskDetails({ task: initialTask }: TaskDetailsProps) {
                   <option value="backend">Backend</option>
                   <option value="frontend">Frontend</option>
                 </select>
-                <select
+                <input
+                  type="text"
                   value={task.serverName}
-                  onChange={(e) => setTask({ ...task, serverName: e.target.value as typeof SERVER_NAMES[number] })}
+                  onChange={(e) => setTask({ ...task, serverName: e.target.value })}
+                  placeholder="e.g., dev, qa, stage, prod"
                   className="px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800"
-                >
-                  {SERVER_NAMES.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             ) : (
               <p className="text-sm">
