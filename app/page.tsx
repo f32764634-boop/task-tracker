@@ -2,9 +2,10 @@ import { getTasks } from './actions/tasks';
 import TaskForm from './components/TaskForm';
 import TaskTable from './components/TaskTable';
 import DatabaseStatus from './components/DatabaseStatus';
+import { Task } from '@/types/task';
 
 export default async function Home() {
-  let tasks;
+  let tasks: Task[] = [];
   let error: string | null = null;
 
   try {
